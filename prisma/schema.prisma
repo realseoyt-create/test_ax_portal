@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model System {
+  id               String   @id @default(cuid())
+  name             String
+  shortDescription String
+  description      String
+  link             String?
+  creatorName      String
+
+  // Reserved for future SSO-based ownership. Null until SSO is introduced.
+  ownerId          String?
+
+  tags             Tag[]         @relation("SystemTags")
+  images           SystemImage[]
+  hearts           Heart[]
+
+  createdAt        DateTime @default(now())
+}
+
+model Tag {
+  id      String   @id @default(cuid())
+  name    String   @unique
+  systems System[] @relation("SystemTags")
+}
+
+model SystemImage {
+  id        String  @id @default(cuid())
+  systemId  String
+  system    System  @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  path      String
+  isPrimary Boolean @default(false)
+  order     Int     @default(0)
+}
+
+model Heart {
+  id          String   @id @default(cuid())
+  systemId    String
+  system      System   @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  anonymousId String
+  createdAt   DateTime @default(now())
+
+  @@unique([systemId, anonymousId])
+}

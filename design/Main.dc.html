@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #12213c; text-decoration: none; }
+    a:hover { color: #2f4a86; }
+    .nav-item { transition: background-color 120ms ease, color 120ms ease; }
+    .reg-btn { transition: transform 120ms ease, box-shadow 120ms ease; }
+    .reg-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(18,33,60,0.25); }
+    .sys-card { transition: transform 160ms ease, box-shadow 160ms ease; }
+    .sys-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(18,33,60,0.10); }
+    .heart-btn { transition: transform 120ms ease; }
+    .heart-btn:hover { transform: scale(1.08); }
+    .tag-pill { transition: background-color 120ms ease, color 120ms ease; }
+    input::placeholder { color: #9aa1ac; }
+  </style>
+</helmet>
+
+<div style="display:flex; min-height:100vh; width:100%; background:#fbfbfa; font-family: 'Manrope', system-ui, sans-serif; color:#12213c;">
+
+  <!-- Sidebar -->
+  <div style="width:252px; flex-shrink:0; border-right:1px solid #eceef1; padding:28px 20px; display:flex; flex-direction:column; gap:32px; background:#ffffff;">
+
+    <div style="display:flex; align-items:center; gap:10px; padding:0 8px;">
+      <div style="width:32px; height:32px; border-radius:9px; background:linear-gradient(135deg, #9ccc65 0%, #4fd1c5 55%, #b39ddb 100%); flex-shrink:0;"></div>
+      <div style="font-weight:800; font-size:16px; letter-spacing:-0.01em; line-height:1.2;">TEST AX<br/>Portal</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <div style="font-size:11px; font-weight:700; color:#9aa1ac; text-transform:uppercase; letter-spacing:0.06em; padding:0 12px; margin-bottom:6px;">메뉴</div>
+
+      <div class="nav-item" style="display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; background:#eef1fb; color:#12213c; font-weight:700; font-size:14px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12213c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+        <span>카탈로그</span>
+      </div>
+
+      <div class="nav-item" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border-radius:12px; color:#9aa1ac; font-weight:600; font-size:14px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l7-7 4 4 7-7"></path><path d="M14 4h7v7"></path></svg>
+          <span>로드맵</span>
+        </div>
+        <span style="font-size:10px; font-weight:700; color:#b6bcc5; background:#f2f3f5; padding:3px 7px; border-radius:20px;">준비중</span>
+      </div>
+
+      <div class="nav-item" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border-radius:12px; color:#9aa1ac; font-weight:600; font-size:14px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.5L21 11l-6.6 2.5L12 20l-2.4-6.5L3 11l6.6-2.5z"></path></svg>
+          <span>팀 AX 전략</span>
+        </div>
+        <span style="font-size:10px; font-weight:700; color:#b6bcc5; background:#f2f3f5; padding:3px 7px; border-radius:20px;">준비중</span>
+      </div>
+    </div>
+
+    <div style="margin-top:auto; padding:12px; border-radius:14px; background:#f7f8fa; font-size:12px; color:#8b919c; line-height:1.5;">
+      팀원이 만들거나 AI로 만든<br/>시스템을 자유롭게 등록해보세요.
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div style="flex:1; min-width:0; padding:40px 48px 64px; background-image: radial-gradient(#e3e6ea 1px, transparent 1px); background-size: 22px 22px;">
+
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px;">
+      <div>
+        <h1 style="margin:0 0 6px; font-size:28px; font-weight:800; letter-spacing:-0.02em;">시스템 카탈로그</h1>
+        <p style="margin:0; font-size:14px; color:#6b7280;">테스트기술팀이 AI로 만들거나 직접 만든 시스템들을 모아봤어요.</p>
+      </div>
+
+      <button class="reg-btn" style="display:flex; align-items:center; gap:8px; background:#12213c; color:#ffffff; border:none; padding:12px 20px; border-radius:999px; font-family:inherit; font-weight:700; font-size:14px; cursor:pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
+        새 시스템 등록
+      </button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+      <div style="display:flex; align-items:center; gap:8px; background:#ffffff; border:1px solid #e5e7eb; border-radius:999px; padding:10px 16px; min-width:260px; box-shadow:0 1px 2px rgba(16,24,40,0.03);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input type="text" placeholder="시스템 이름으로 검색" style="border:none; outline:none; font-family:inherit; font-size:14px; color:#12213c; background:transparent; width:100%;"/>
+      </div>
+
+      <div style="width:1px; height:24px; background:#e5e7eb;"></div>
+
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span class="tag-pill" style="font-size:13px; font-weight:700; padding:8px 14px; border-radius:999px; background:#12213c; color:#ffffff; cursor:pointer;">전체</span>
+        <span class="tag-pill" style="font-size:13px; font-weight:600; padding:8px 14px; border-radius:999px; background:#ffffff; border:1px solid #e5e7eb; color:#4b5563; cursor:pointer;">비전AI</span>
+        <span class="tag-pill" style="font-size:13px; font-weight:600; padding:8px 14px; border-radius:999px; background:#ffffff; border:1px solid #e5e7eb; color:#4b5563; cursor:pointer;">자동화</span>
+        <span class="tag-pill" style="font-size:13px; font-weight:600; padding:8px 14px; border-radius:999px; background:#ffffff; border:1px solid #e5e7eb; color:#4b5563; cursor:pointer;">데이터분석</span>
+        <span class="tag-pill" style="font-size:13px; font-weight:600; padding:8px 14px; border-radius:999px; background:#ffffff; border:1px solid #e5e7eb; color:#4b5563; cursor:pointer;">LLM</span>
+      </div>
+    </div>
+
+    <!-- Card grid -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap:22px;">
+
+      <!-- Card 1 -->
+      <div class="sys-card" style="background:#ffffff; border-radius:22px; overflow:hidden; box-shadow:0 1px 3px rgba(16,24,40,0.06); border:1px solid #eef0f2; cursor:pointer;">
+        <div style="position:relative; height:168px; background:linear-gradient(135deg, #eaf7c9 0%, #9ccc65 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; width:150px; height:96px; background:#ffffff; border-radius:12px; opacity:0.55; transform:rotate(5deg); box-shadow:0 10px 24px rgba(0,0,0,0.08);"></div>
+          <div style="position:relative; width:158px; height:100px; background:#ffffff; border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,0.12); transform:rotate(-4deg); padding:10px;">
+            <div style="display:flex; gap:4px; margin-bottom:8px;">
+              <div style="width:6px; height:6px; border-radius:50%; background:#ff9f68;"></div>
+              <div style="width:6px; height:6px; border-radius:50%; background:#ffd166;"></div>
+              <div style="width:6px; height:6px; border-radius:50%; background:#9ccc65;"></div>
+            </div>
+            <div style="height:8px; width:70%; background:#eef0f2; border-radius:4px; margin-bottom:6px;"></div>
+            <div style="height:8px; width:90%; background:#eef0f2; border-radius:4px; margin-bottom:6px;"></div>
+            <div style="height:8px; width:50%; background:#eef0f2; border-radius:4px;"></div>
+          </div>
+          <button class="heart-btn" style="position:absolute; top:12px; right:12px; display:flex; align-items:center; gap:5px; background:#ffffff; border:none; border-radius:999px; padding:6px 11px; font-family:inherit; font-weight:700; font-size:12px; color:#12213c; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.10);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#ef476f" stroke="#ef476f" stroke-width="1"><path d="M12 21s-7.5-4.6-10-9.3C0.3 7.9 2.2 4 6 4c2.2 0 3.7 1.2 4.6 2.5C11.5 5.2 13 4 15.2 4c3.8 0 5.7 3.9 4 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+            12
+          </button>
+        </div>
+        <div style="padding:16px 18px 18px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+            <h3 style="margin:0; font-size:15.5px; font-weight:800; letter-spacing:-0.01em;">웨이퍼 결함 자동 분류기</h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><path d="M7 17L17 7"></path><path d="M9 7h8v8"></path></svg>
+          </div>
+          <p style="margin:6px 0 12px; font-size:13px; color:#6b7280; line-height:1.5;">웨이퍼 이미지를 분석해 결함 유형을 자동으로 분류하는 비전 모델.</p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">비전AI</span>
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">품질관리</span>
+          </div>
+          <div style="font-size:12px; color:#9aa1ac; font-weight:600;">by 김도현</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="sys-card" style="background:#ffffff; border-radius:22px; overflow:hidden; box-shadow:0 1px 3px rgba(16,24,40,0.06); border:1px solid #eef0f2; cursor:pointer;">
+        <div style="position:relative; height:168px; background:linear-gradient(135deg, #ffe6c2 0%, #ff9f68 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; width:150px; height:96px; background:#ffffff; border-radius:12px; opacity:0.55; transform:rotate(5deg); box-shadow:0 10px 24px rgba(0,0,0,0.08);"></div>
+          <div style="position:relative; width:158px; height:100px; background:#ffffff; border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,0.12); transform:rotate(-4deg); padding:10px;">
+            <div style="display:flex; align-items:flex-end; gap:5px; height:56px; margin-top:14px;">
+              <div style="width:12px; height:26px; background:#eef0f2; border-radius:3px;"></div>
+              <div style="width:12px; height:44px; background:#e5e7eb; border-radius:3px;"></div>
+              <div style="width:12px; height:34px; background:#eef0f2; border-radius:3px;"></div>
+              <div style="width:12px; height:52px; background:#ffd7b0; border-radius:3px;"></div>
+              <div style="width:12px; height:30px; background:#eef0f2; border-radius:3px;"></div>
+            </div>
+          </div>
+          <button class="heart-btn" style="position:absolute; top:12px; right:12px; display:flex; align-items:center; gap:5px; background:#ffffff; border:none; border-radius:999px; padding:6px 11px; font-family:inherit; font-weight:700; font-size:12px; color:#12213c; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.10);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#ef476f" stroke="#ef476f" stroke-width="1"><path d="M12 21s-7.5-4.6-10-9.3C0.3 7.9 2.2 4 6 4c2.2 0 3.7 1.2 4.6 2.5C11.5 5.2 13 4 15.2 4c3.8 0 5.7 3.9 4 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+            8
+          </button>
+        </div>
+        <div style="padding:16px 18px 18px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+            <h3 style="margin:0; font-size:15.5px; font-weight:800; letter-spacing:-0.01em;">설비 이상탐지 대시보드</h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><path d="M7 17L17 7"></path><path d="M9 7h8v8"></path></svg>
+          </div>
+          <p style="margin:6px 0 12px; font-size:13px; color:#6b7280; line-height:1.5;">테스트 설비 센서 데이터를 실시간으로 모니터링하고 이상 징후를 알려줘요.</p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">데이터분석</span>
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">모니터링</span>
+          </div>
+          <div style="font-size:12px; color:#9aa1ac; font-weight:600;">by 이서연</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="sys-card" style="background:#ffffff; border-radius:22px; overflow:hidden; box-shadow:0 1px 3px rgba(16,24,40,0.06); border:1px solid #eef0f2; cursor:pointer;">
+        <div style="position:relative; height:168px; background:linear-gradient(135deg, #ece0fb 0%, #b39ddb 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; width:150px; height:96px; background:#ffffff; border-radius:12px; opacity:0.55; transform:rotate(5deg); box-shadow:0 10px 24px rgba(0,0,0,0.08);"></div>
+          <div style="position:relative; width:158px; height:100px; background:#ffffff; border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,0.12); transform:rotate(-4deg); padding:10px;">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+              <div style="width:18px; height:18px; border-radius:6px; background:#d9c8f7;"></div>
+              <div style="height:7px; width:60px; background:#eef0f2; border-radius:4px;"></div>
+            </div>
+            <div style="height:7px; width:85%; background:#eef0f2; border-radius:4px; margin-bottom:6px;"></div>
+            <div style="height:7px; width:65%; background:#eef0f2; border-radius:4px; margin-bottom:6px;"></div>
+            <div style="height:7px; width:75%; background:#eef0f2; border-radius:4px;"></div>
+          </div>
+          <button class="heart-btn" style="position:absolute; top:12px; right:12px; display:flex; align-items:center; gap:5px; background:#ffffff; border:none; border-radius:999px; padding:6px 11px; font-family:inherit; font-weight:700; font-size:12px; color:#12213c; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.10);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#ef476f" stroke="#ef476f" stroke-width="1"><path d="M12 21s-7.5-4.6-10-9.3C0.3 7.9 2.2 4 6 4c2.2 0 3.7 1.2 4.6 2.5C11.5 5.2 13 4 15.2 4c3.8 0 5.7 3.9 4 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+            21
+          </button>
+        </div>
+        <div style="padding:16px 18px 18px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+            <h3 style="margin:0; font-size:15.5px; font-weight:800; letter-spacing:-0.01em;">테스트 시나리오 생성 에이전트</h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><path d="M7 17L17 7"></path><path d="M9 7h8v8"></path></svg>
+          </div>
+          <p style="margin:6px 0 12px; font-size:13px; color:#6b7280; line-height:1.5;">스펙 문서를 읽고 테스트 시나리오 초안을 자동으로 생성하는 LLM 에이전트.</p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">LLM</span>
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">자동화</span>
+          </div>
+          <div style="font-size:12px; color:#9aa1ac; font-weight:600;">by 박지훈</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="sys-card" style="background:#ffffff; border-radius:22px; overflow:hidden; box-shadow:0 1px 3px rgba(16,24,40,0.06); border:1px solid #eef0f2; cursor:pointer;">
+        <div style="position:relative; height:168px; background:linear-gradient(135deg, #cdf5ec 0%, #4fd1c5 100%); display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; width:150px; height:96px; background:#ffffff; border-radius:12px; opacity:0.55; transform:rotate(5deg); box-shadow:0 10px 24px rgba(0,0,0,0.08);"></div>
+          <div style="position:relative; width:158px; height:100px; background:#ffffff; border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,0.12); transform:rotate(-4deg); padding:10px;">
+            <div style="height:8px; width:80%; background:#eef0f2; border-radius:4px; margin-bottom:8px;"></div>
+            <div style="height:8px; width:55%; background:#eef0f2; border-radius:4px; margin-bottom:10px;"></div>
+            <div style="height:22px; width:100%; background:#e0f7f1; border-radius:6px;"></div>
+          </div>
+          <button class="heart-btn" style="position:absolute; top:12px; right:12px; display:flex; align-items:center; gap:5px; background:#ffffff; border:none; border-radius:999px; padding:6px 11px; font-family:inherit; font-weight:700; font-size:12px; color:#12213c; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.10);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#12213c" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C0.3 7.9 2.2 4 6 4c2.2 0 3.7 1.2 4.6 2.5C11.5 5.2 13 4 15.2 4c3.8 0 5.7 3.9 4 7.7C19.5 16.4 12 21 12 21z"></path></svg>
+            5
+          </button>
+        </div>
+        <div style="padding:16px 18px 18px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+            <h3 style="margin:0; font-size:15.5px; font-weight:800; letter-spacing:-0.01em;">주간 리포트 자동화봇</h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9aa1ac" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><path d="M7 17L17 7"></path><path d="M9 7h8v8"></path></svg>
+          </div>
+          <p style="margin:6px 0 12px; font-size:13px; color:#6b7280; line-height:1.5;">흩어진 테스트 결과를 모아 주간 리포트를 자동으로 작성해줘요.</p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">자동화</span>
+            <span style="font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:#f2f3f5; color:#4b5563;">리포팅</span>
+          </div>
+          <div style="font-size:12px; color:#9aa1ac; font-weight:600;">by 최민아</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
