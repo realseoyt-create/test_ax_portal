@@ -1,4 +1,4 @@
-export type SystemSummary = {
+export type ResourceSummary = {
   id: string;
   name: string;
   shortDescription: string;
@@ -10,6 +10,9 @@ export type SystemSummary = {
   heartedByMe: boolean;
 };
 
-export type SystemDetail = SystemSummary & {
+export type ResourceDetail = ResourceSummary & {
   description: string;
 };
+
+export type SystemSummary = ResourceSummary;
+export type SystemDetail = ResourceDetail;

@@ -49,3 +49,48 @@ model Heart {
 
   @@unique([systemId, anonymousId])
 }
+
+// AX 스타터 키트: 핵심 툴 설치 가이드 / 데이터레이크 접근 링크 모음.
+// 카탈로그(System)와 구조는 비슷하지만 등록은 관리자 코드로 제한되고, link는 필수다.
+model KitItem {
+  id               String   @id @default(cuid())
+  name             String
+  shortDescription String
+  description      String
+  link             String
+  creatorName      String
+
+  // Reserved for future SSO-based ownership. Null until SSO is introduced.
+  ownerId          String?
+
+  tags             KitTag[]       @relation("KitItemTags")
+  images           KitItemImage[]
+  hearts           KitHeart[]
+
+  createdAt        DateTime @default(now())
+}
+
+model KitTag {
+  id    String    @id @default(cuid())
+  name  String    @unique
+  items KitItem[] @relation("KitItemTags")
+}
+
+model KitItemImage {
+  id        String  @id @default(cuid())
+  itemId    String
+  item      KitItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  path      String
+  isPrimary Boolean @default(false)
+  order     Int     @default(0)
+}
+
+model KitHeart {
+  id          String   @id @default(cuid())
+  itemId      String
+  item        KitItem  @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  anonymousId String
+  createdAt   DateTime @default(now())
+
+  @@unique([itemId, anonymousId])
+}

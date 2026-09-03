@@ -5,7 +5,7 @@ import { ANON_COOKIE } from "@/lib/anon";
 import { ResourceDetailView } from "@/components/ResourceDetailView";
 import type { ResourceDetail } from "@/lib/types";
 
-export default async function SystemDetailPage({
+export default async function StarterKitDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -14,7 +14,7 @@ export default async function SystemDetailPage({
   const cookieStore = await cookies();
   const anonId = cookieStore.get(ANON_COOKIE)?.value;
 
-  const system = await prisma.system.findUnique({
+  const kitItem = await prisma.kitItem.findUnique({
     where: { id },
     include: {
       tags: true,
@@ -24,27 +24,27 @@ export default async function SystemDetailPage({
     },
   });
 
-  if (!system) notFound();
+  if (!kitItem) notFound();
 
   const item: ResourceDetail = {
-    id: system.id,
-    name: system.name,
-    shortDescription: system.shortDescription,
-    description: system.description,
-    link: system.link,
-    creatorName: system.creatorName,
-    tags: system.tags.map((t) => t.name),
-    images: system.images.map((i) => i.path),
-    heartCount: system._count.hearts,
-    heartedByMe: anonId ? system.hearts.length > 0 : false,
+    id: kitItem.id,
+    name: kitItem.name,
+    shortDescription: kitItem.shortDescription,
+    description: kitItem.description,
+    link: kitItem.link,
+    creatorName: kitItem.creatorName,
+    tags: kitItem.tags.map((t) => t.name),
+    images: kitItem.images.map((i) => i.path),
+    heartCount: kitItem._count.hearts,
+    heartedByMe: anonId ? kitItem.hearts.length > 0 : false,
   };
 
   return (
     <ResourceDetailView
       item={item}
-      backHref="/"
-      backLabel="카탈로그로 돌아가기"
-      heartEndpoint={`/api/systems/${system.id}/heart`}
+      backHref="/starter-kit"
+      backLabel="스타터 키트로 돌아가기"
+      heartEndpoint={`/api/kit/${kitItem.id}/heart`}
     />
   );
 }

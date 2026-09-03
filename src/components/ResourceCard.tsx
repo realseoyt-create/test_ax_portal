@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { SystemSummary } from "@/lib/types";
+import type { ResourceSummary } from "@/lib/types";
 import { ExternalLinkIcon, ImagesIcon } from "./icons";
 import { HeartButton } from "./HeartButton";
 
@@ -60,37 +60,45 @@ function ImageStack({ images, alt }: { images: string[]; alt: string }) {
   );
 }
 
-export function SystemCard({ system }: { system: SystemSummary }) {
+export function ResourceCard({
+  item,
+  detailHref,
+  heartEndpoint,
+}: {
+  item: ResourceSummary;
+  detailHref: string;
+  heartEndpoint: string;
+}) {
   const router = useRouter();
-  const gradient = gradientFor(system.id);
+  const gradient = gradientFor(item.id);
 
   return (
     <div
-      onClick={() => router.push(`/systems/${system.id}`)}
+      onClick={() => router.push(detailHref)}
       className="bg-white rounded-[22px] overflow-hidden shadow-[0_1px_3px_rgba(16,24,40,0.06)] border border-[#eef0f2] transition-transform hover:-translate-y-[3px] hover:shadow-[0_16px_32px_rgba(16,24,40,0.10)] cursor-pointer"
     >
       <div
         className="relative h-[168px] flex items-center justify-center"
         style={{ background: gradient }}
       >
-        <ImageStack images={system.images} alt={system.name} />
+        <ImageStack images={item.images} alt={item.name} />
         <HeartButton
-          systemId={system.id}
-          initialCount={system.heartCount}
-          initialHearted={system.heartedByMe}
+          endpoint={heartEndpoint}
+          initialCount={item.heartCount}
+          initialHearted={item.heartedByMe}
           className="absolute top-3 right-3 flex items-center gap-1.5 bg-white rounded-full px-2.5 py-1.5 font-bold text-xs text-[#12213c] shadow-[0_4px_10px_rgba(0,0,0,0.10)] cursor-pointer"
         />
       </div>
       <div className="p-4 pt-4 pb-[18px]">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="m-0 text-[15.5px] font-extrabold tracking-[-0.01em]">{system.name}</h3>
-          {system.link && (
+          <h3 className="m-0 text-[15.5px] font-extrabold tracking-[-0.01em]">{item.name}</h3>
+          {item.link && (
             <a
-              href={system.link}
+              href={item.link}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              aria-label={`${system.name} 링크 새 탭으로 열기`}
+              aria-label={`${item.name} 링크 새 탭으로 열기`}
               title="링크로 이동"
               className="shrink-0 flex items-center justify-center w-6 h-6 rounded-full text-[#9aa1ac] hover:bg-[#f2f3f5] hover:text-[#12213c]"
             >
@@ -99,10 +107,10 @@ export function SystemCard({ system }: { system: SystemSummary }) {
           )}
         </div>
         <p className="mt-1.5 mb-3 text-[13px] text-[#6b7280] leading-relaxed">
-          {system.shortDescription}
+          {item.shortDescription}
         </p>
         <div className="flex gap-1.5 flex-wrap mb-3">
-          {system.tags.map((tag) => (
+          {item.tags.map((tag) => (
             <span
               key={tag}
               className="text-[11.5px] font-semibold px-2.5 py-1 rounded-full bg-[#f2f3f5] text-[#4b5563]"
@@ -111,7 +119,7 @@ export function SystemCard({ system }: { system: SystemSummary }) {
             </span>
           ))}
         </div>
-        <div className="text-xs text-[#9aa1ac] font-semibold">by {system.creatorName}</div>
+        <div className="text-xs text-[#9aa1ac] font-semibold">by {item.creatorName}</div>
       </div>
     </div>
   );

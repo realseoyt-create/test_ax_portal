@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { ANON_COOKIE } from "@/lib/anon";
-import { CatalogGrid } from "@/components/CatalogGrid";
-import type { SystemSummary } from "@/lib/types";
+import { ResourceGrid } from "@/components/ResourceGrid";
+import type { ResourceSummary } from "@/lib/types";
 
 export default async function CatalogPage() {
   const cookieStore = await cookies();
@@ -21,7 +21,7 @@ export default async function CatalogPage() {
     prisma.tag.findMany({ orderBy: { name: "asc" }, select: { name: true } }),
   ]);
 
-  const initialSystems: SystemSummary[] = systems.map((s) => ({
+  const initialSystems: ResourceSummary[] = systems.map((s) => ({
     id: s.id,
     name: s.name,
     shortDescription: s.shortDescription,
@@ -34,6 +34,18 @@ export default async function CatalogPage() {
   }));
 
   return (
-    <CatalogGrid initialSystems={initialSystems} initialTags={tags.map((t) => t.name)} />
+    <ResourceGrid
+      title="시스템 카탈로그"
+      subtitle="테스트기술팀이 AI로 만들거나 직접 만든 시스템들을 모아봤어요."
+      registerHref="/register"
+      registerLabel="새 시스템 등록"
+      searchPlaceholder="시스템 이름으로 검색"
+      emptyMessage="조건에 맞는 시스템이 없어요."
+      initialItems={initialSystems}
+      initialTags={tags.map((t) => t.name)}
+      listEndpoint="/api/systems"
+      detailHrefBase="/systems"
+      heartEndpointBase="/api/systems"
+    />
   );
 }

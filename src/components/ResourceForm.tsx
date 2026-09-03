@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ImagePlusIcon, PlusIcon, XIcon } from "./icons";
 
@@ -8,7 +8,21 @@ const inputClass =
   "w-full border border-[#e5e7eb] rounded-xl px-4 py-3 text-sm text-[#12213c] bg-white outline-none focus:border-[#12213c]";
 const labelClass = "block text-sm font-bold mb-1.5";
 
-export function RegisterForm() {
+export function ResourceForm({
+  submitEndpoint,
+  tagsEndpoint,
+  redirectHref,
+  namePlaceholder,
+  linkRequired = false,
+  requireAdminCode = false,
+}: {
+  submitEndpoint: string;
+  tagsEndpoint: string;
+  redirectHref: string;
+  namePlaceholder: string;
+  linkRequired?: boolean;
+  requireAdminCode?: boolean;
+}) {
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -16,6 +30,7 @@ export function RegisterForm() {
   const [description, setDescription] = useState("");
   const [creatorName, setCreatorName] = useState("");
   const [link, setLink] = useState("");
+  const [adminCode, setAdminCode] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagDraft, setTagDraft] = useState("");
   const [existingTags, setExistingTags] = useState<string[]>([]);
@@ -25,11 +40,11 @@ export function RegisterForm() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    fetch("/api/tags")
+    fetch(tagsEndpoint)
       .then((r) => (r.ok ? r.json() : []))
       .then(setExistingTags)
       .catch(() => {});
-  }, []);
+  }, [tagsEndpoint]);
 
   function addTag(raw: string) {
     const value = raw.trim();
@@ -65,12 +80,20 @@ export function RegisterForm() {
       setError("이름, 한줄 설명, 등록자는 필수예요.");
       return;
     }
+    if (linkRequired && !link.trim()) {
+      setError("링크는 필수예요.");
+      return;
+    }
     if (tags.length === 0) {
       setError("태그를 하나 이상 입력해주세요.");
       return;
     }
     if (images.length === 0) {
       setError("대표 이미지를 최소 1장 등록해주세요.");
+      return;
+    }
+    if (requireAdminCode && !adminCode.trim()) {
+      setError("관리자 코드를 입력해주세요.");
       return;
     }
 
@@ -81,17 +104,18 @@ export function RegisterForm() {
     formData.set("creatorName", creatorName.trim());
     formData.set("link", link.trim());
     formData.set("tags", tags.join(","));
+    if (requireAdminCode) formData.set("adminCode", adminCode.trim());
     images.forEach((file) => formData.append("images", file));
 
     setSubmitting(true);
     try {
-      const res = await fetch("/api/systems", { method: "POST", body: formData });
+      const res = await fetch(submitEndpoint, { method: "POST", body: formData });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         setError(data.error ?? "등록에 실패했어요. 다시 시도해주세요.");
         return;
       }
-      router.push("/");
+      router.push(redirectHref);
       router.refresh();
     } catch {
       setError("등록에 실패했어요. 다시 시도해주세요.");
@@ -108,7 +132,7 @@ export function RegisterForm() {
           className={inputClass}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="예: 웨이퍼 결함 자동 분류기"
+          placeholder={namePlaceholder}
         />
       </div>
 
@@ -143,7 +167,7 @@ export function RegisterForm() {
       </div>
 
       <div>
-        <label className={labelClass}>링크</label>
+        <label className={labelClass}>링크{linkRequired ? " *" : ""}</label>
         <input
           className={inputClass}
           value={link}
@@ -222,6 +246,22 @@ export function RegisterForm() {
         )}
       </div>
 
+      {requireAdminCode && (
+        <div>
+          <label className={labelClass}>관리자 코드 *</label>
+          <p className="text-xs text-[#9aa1ac] mb-2">
+            등록 권한 확인용 코드예요. 모르면 관리자에게 문의해주세요.
+          </p>
+          <input
+            type="password"
+            className={inputClass}
+            value={adminCode}
+            onChange={(e) => setAdminCode(e.target.value)}
+            placeholder="관리자 코드"
+          />
+        </div>
+      )}
+
       {error && <p className="text-sm text-[#ef476f] font-semibold">{error}</p>}
 
       <button
@@ -236,20 +276,18 @@ export function RegisterForm() {
 }
 
 function ImageThumb({ file, onRemove, primary }: { file: File; onRemove: () => void; primary: boolean }) {
-  const [url, setUrl] = useState<string | null>(null);
+  const url = useMemo(() => URL.createObjectURL(file), [file]);
 
   useEffect(() => {
-    const objectUrl = URL.createObjectURL(file);
-    setUrl(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [file]);
+    return () => URL.revokeObjectURL(url);
+  }, [url]);
 
   return (
     <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-[#e5e7eb]">
-      {url && (
+      {
         // eslint-disable-next-line @next/next/no-img-element
         <img src={url} alt={file.name} className="w-full h-full object-cover" />
-      )}
+      }
       {primary && (
         <span className="absolute bottom-0 left-0 right-0 text-[10px] font-bold text-white bg-black/50 text-center py-0.5">
           대표

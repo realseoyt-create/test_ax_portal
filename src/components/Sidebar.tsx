@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GridIcon, MapIcon, StarIcon } from "./icons";
+import { GridIcon, MapIcon, StarIcon, ToolboxIcon } from "./icons";
 
 const NAV_ITEMS = [
   { href: "/", label: "카탈로그", icon: GridIcon, enabled: true },
+  { href: "/starter-kit", label: "AX 스타터 키트", icon: ToolboxIcon, enabled: true },
   { href: "/roadmap", label: "로드맵", icon: MapIcon, enabled: false },
   { href: "/strategy", label: "팀 AX 전략", icon: StarIcon, enabled: false },
 ] as const;
@@ -31,7 +32,9 @@ export function Sidebar() {
 
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
-          const active = item.enabled && pathname === item.href;
+          const active =
+            item.enabled &&
+            (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href));
 
           if (!item.enabled) {
             return (

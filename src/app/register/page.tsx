@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/components/RegisterForm";
+import { ResourceForm } from "@/components/ResourceForm";
 
 export default function RegisterPage() {
   return (
@@ -10,7 +10,12 @@ export default function RegisterPage() {
         <p className="m-0 mb-8 text-sm text-[#6b7280]">
           AI로 만들었든 직접 만들었든, 팀에 소개하고 싶은 시스템을 자유롭게 등록해주세요.
         </p>
-        <RegisterForm />
+        <ResourceForm
+          submitEndpoint="/api/systems"
+          tagsEndpoint="/api/tags"
+          redirectHref="/"
+          namePlaceholder="예: 웨이퍼 결함 자동 분류기"
+        />
       </div>
     </div>
   );

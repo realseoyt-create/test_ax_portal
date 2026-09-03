@@ -4,12 +4,12 @@ import { useState } from "react";
 import { HeartIcon } from "./icons";
 
 export function HeartButton({
-  systemId,
+  endpoint,
   initialCount,
   initialHearted,
   className,
 }: {
-  systemId: string;
+  endpoint: string;
   initialCount: number;
   initialHearted: boolean;
   className?: string;
@@ -31,7 +31,7 @@ export function HeartButton({
     setCount(prevHearted ? prevCount - 1 : prevCount + 1);
 
     try {
-      const res = await fetch(`/api/systems/${systemId}/heart`, { method: "POST" });
+      const res = await fetch(endpoint, { method: "POST" });
       if (!res.ok) throw new Error("heart toggle failed");
       const data = (await res.json()) as { heartCount: number; hearted: boolean };
       setCount(data.heartCount);
