@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { XIcon } from "./icons";
+import { ImagePlusIcon, PlusIcon, XIcon } from "./icons";
 
 const inputClass =
   "w-full border border-[#e5e7eb] rounded-xl px-4 py-3 text-sm text-[#12213c] bg-white outline-none focus:border-[#12213c]";
@@ -197,8 +197,22 @@ export function RegisterForm() {
           accept="image/png,image/jpeg,image/webp,image/gif"
           multiple
           onChange={onFilesSelected}
-          className="text-sm"
+          className="hidden"
         />
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="flex flex-col items-center justify-center gap-2 w-full py-8 rounded-2xl border-2 border-dashed border-[#e5e7eb] text-[#6b7280] bg-white hover:border-[#12213c] hover:text-[#12213c] hover:bg-[#f7f8fa] transition-colors cursor-pointer"
+        >
+          <span className="relative">
+            <ImagePlusIcon />
+            <span className="absolute -bottom-1 -right-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#12213c] text-white">
+              <PlusIcon className="w-2.5 h-2.5" />
+            </span>
+          </span>
+          <span className="text-sm font-bold">클릭해서 사진 추가</span>
+          <span className="text-xs text-[#9aa1ac]">PNG, JPEG, WEBP, GIF · 최대 8MB</span>
+        </button>
         {images.length > 0 && (
           <div className="flex gap-2 flex-wrap mt-3">
             {images.map((file, i) => (

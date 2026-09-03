@@ -91,6 +91,17 @@ export function ImagesIcon({ className }: IconProps) {
   );
 }
 
+export function ImagePlusIcon({ className }: IconProps) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className={className} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <circle cx="9" cy="9" r="1.7" />
+      <path d="M3 16l5-5a2 2 0 0 1 2.8 0L15 15" />
+      <path d="M14 14l1.2-1.2a2 2 0 0 1 2.8 0L21 15.6" />
+    </svg>
+  );
+}
+
 export function XIcon({ className }: IconProps) {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" className={className} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
