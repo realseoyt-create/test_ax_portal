@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { ANON_COOKIE } from "@/lib/anon";
-import { ArrowLeftIcon } from "@/components/icons";
+import { ArrowLeftIcon, ExternalLinkIcon } from "@/components/icons";
 import { HeartButton } from "@/components/HeartButton";
 
 export default async function SystemDetailPage({
@@ -54,11 +54,24 @@ export default async function SystemDetailPage({
 
         <div className="flex items-start justify-between gap-4 mb-2">
           <h1 className="m-0 text-[26px] font-extrabold tracking-[-0.02em]">{system.name}</h1>
-          <HeartButton
-            systemId={system.id}
-            initialCount={system._count.hearts}
-            initialHearted={anonId ? system.hearts.length > 0 : false}
-          />
+          <div className="flex items-center gap-2 shrink-0">
+            {system.link && (
+              <a
+                href={system.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 bg-[#12213c] text-white rounded-full px-3.5 py-2 font-bold text-xs"
+              >
+                <ExternalLinkIcon />
+                링크로 이동
+              </a>
+            )}
+            <HeartButton
+              systemId={system.id}
+              initialCount={system._count.hearts}
+              initialHearted={anonId ? system.hearts.length > 0 : false}
+            />
+          </div>
         </div>
 
         <p className="text-sm text-[#9aa1ac] font-semibold mb-4">by {system.creatorName}</p>
